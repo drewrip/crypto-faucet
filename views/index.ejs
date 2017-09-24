@@ -11,6 +11,34 @@
 		</form>
 		<h3 style="padding: 20px">Faucet has <%= faucetBalance %> SIGT available</h3>
 		<h3 style="padding: 20px">Donate to the faucet <%= faucetAddress %>. It is run completely on donations!</h3>
+		<div id="sendStatus" class="<%= sentStatus %>"><h4><%= statusMessage %></h4></div>
 	</body>
 </html>
 <script src="https://www.google.com/recaptcha/api.js"></script>
+<style type="text/css">
+	.sent{
+		height: 20%;
+		width: 90%;
+		border-radius: 7px;
+		border-width: 5px;
+		border-style: solid;
+		border-color: #0d9f00;
+		background-color: #12d600;
+		text-align: center;
+		opacity: .75;
+	}
+	.timeout{
+		height: 20%;
+		width: 90%;
+		border-radius: 7px;
+		border-width: 5px;
+		border-style: solid;
+		border-color: #ba0000;
+		background-color: #c90000;
+		text-align: center;
+		opacity: .75;
+	}
+	.none{
+
+	}
+</style>
