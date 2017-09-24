@@ -1,0 +1,6 @@
+{
+	"rpcHost": "localhost",
+	"rpcPort": 33334,
+	"rpcUsername": "Your RPC username for the daemon",
+	"rpcPassword": "Your RPC password for the daemon"
+}
