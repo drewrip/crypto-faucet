@@ -6,9 +6,16 @@ var express = require("express");
 var bodyParser = require('body-parser');
 var path = require("path")
 var rateLimit = require('express-rate-limit');
+var request = require('request');
 
 var app = express();
 var config = require("./config.json");
+
+var sent = "none";
+var message = "";
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 var limiter = new rateLimit({
   windowMs: 60*60*1000, // 1 hour 
@@ -23,13 +30,21 @@ const walletSIGT = new walletRPC({
   password: config.rpcPassword
 });
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json({ type: 'application/*+json' }));
 app.use("/sendAddress", limiter);
 app.set('views', './views');
 app.set('view engine', 'ejs');
 
-app.post("/sendAddress", function(err, req, res) {
+app.get("/", function(req, res){
+  walletSIGT.getBalance(function(err, bal){
+    walletSIGT.getAccountAddress(config.walletAccount, function(err, addr){
+      res.render('index', {apiKey: config.googleCaptchaApiKey, faucetBalance: bal, faucetAddress: addr, sentStatus: sent, statusMessage: message});
+    });
+  });
+});
+
+app.post("/sendAddress", function(req, res) {
+  res.setHeader('Content-Type', 'application/json');
+
   console.log("Sending SIGT to address " + req.body.userAddress);
    if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
     return res.json({"responseCode" : 1,"responseDesc" : "Please select captcha"});
@@ -47,17 +62,16 @@ app.post("/sendAddress", function(err, req, res) {
     if(body.success !== undefined && !body.success) {
       return res.json({"responseCode" : 1,"responseDesc" : "Failed captcha verification"});
     }
-    res.json({"responseCode" : 0,"responseDesc" : "Sucess"});
   });
-  walletSIGT.sendToAddress(userAddress, config.faucetRate);
-});
-
-app.get("/", function(req, res){
-  walletSIGT.getBalance(function(err, bal){
-    walletSIGT.getAccountAddress(config.walletAccount, function(err, addr){
-      res.render('index', {apiKey: config.googleCaptchaApiKey, faucetBalance: bal, faucetAddress: addr});
-    });
-  });
+  walletSIGT.sendToAddress(req.body.userAddress, config.faucetRate);
+  if(req.rateLimit.statusCode == 429){
+    sent = "timeout";
+    message = "Come back in 1 hour to claim again!";
+  }
+  else{
+    sent = "sent";
+    message = "SIGT has been sent!";
+  }
 });
 
 app.listen(8080);
