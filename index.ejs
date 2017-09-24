@@ -1,0 +1,16 @@
+<html>
+	<body>
+		<h1>Signatum Faucet</h1>
+		<form style="padding: 20px" action="/sendAddress" method="post">
+			<fieldset>
+				<label for="address">Your Address:</label>
+				<input type="text" name="userAddress" placeholder="Address to receive SIGT" />
+				<div class="g-recaptcha" data-sitekey="<%= apiKey %>"></div>
+				<input type="submit" value="Send me SIGT!" />
+			</fieldset>
+		</form>
+		<h3 style="padding: 20px">Faucet has <%= faucetBalance %> SIGT available</h3>
+		<h3 style="padding: 20px">Donate to the faucet <%= faucetAddress %>. It is run completely on donations!</h3>
+	</body>
+</html>
+<script src="https://www.google.com/recaptcha/api.js"></script>
