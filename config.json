@@ -2,5 +2,9 @@
 	"rpcHost": "localhost",
 	"rpcPort": 33334,
 	"rpcUsername": "Your RPC username for the daemon",
-	"rpcPassword": "Your RPC password for the daemon"
+	"rpcPassword": "Your RPC password for the daemon",
+	"walletAccount": "faucet",
+	"googleCaptchaApiKey": "Your Google ReCAPTCHA v2 API key",
+	"googleCaptchaApiSecret": "Your Google ReCAPTCHA v2 API secret",
+	"faucetRate": 0.2
 }
