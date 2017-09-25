@@ -20,7 +20,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 var limiter = new rateLimit({
   windowMs: 60*60*1000, // 1 hour 
   max: 1,
-  message: "Come back in 1 hour to claim again!"
+  onLimitReached: function(req, res, options){
+    sent = "timeout";
+    message = "Come back in 1 hour to claim again!";
+    res.redirect("/");
+  }
 });
 
 const walletSIGT = new walletRPC({
@@ -38,6 +42,8 @@ app.get("/", function(req, res){
   walletSIGT.getBalance(function(err, bal){
     walletSIGT.getAccountAddress(config.walletAccount, function(err, addr){
       res.render('index', {apiKey: config.googleCaptchaApiKey, faucetBalance: bal, faucetAddress: addr, sentStatus: sent, statusMessage: message});
+      sent = "none";
+      message = "";
     });
   });
 });
@@ -64,14 +70,11 @@ app.post("/sendAddress", function(req, res) {
     }
   });
   walletSIGT.sendToAddress(req.body.userAddress, config.faucetRate);
-  if(req.rateLimit.statusCode == 429){
-    sent = "timeout";
-    message = "Come back in 1 hour to claim again!";
-  }
-  else{
+  if(req.rateLimit.statusCode != 429){
     sent = "sent";
     message = "SIGT has been sent!";
   }
+  res.redirect("/");
 });
 
 app.listen(8080);
