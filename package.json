@@ -23,6 +23,7 @@
   "homepage": "https://github.com/nullifies/signatum-faucet#readme",
   "dependencies": {
     "bitcoin-core": "^1.2.0",
+    "ejs": "^2.5.7",
     "express": "^4.16.1",
     "express-rate-limit": "^2.9.0"
   }
