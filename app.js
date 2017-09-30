@@ -52,7 +52,6 @@ app.get("/", function(req, res){
 app.post("/sendAddress", function(req, res) {
   res.setHeader('Content-Type', 'application/json');
 
-  console.log("Sending SIGT to address " + req.body.userAddress);
    if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
     return res.json({"responseCode" : 1,"responseDesc" : "Please select captcha"});
   }
@@ -71,6 +70,7 @@ app.post("/sendAddress", function(req, res) {
     }
   });
   walletSIGT.sendToAddress(req.body.userAddress, config.faucetRate);
+  fs.appendFile("info.log", "Sending SIGT to address " + req.body.userAddress);
   if(req.rateLimit.statusCode != 429){
     sent = "sent";
     message = "SIGT has been sent!";
