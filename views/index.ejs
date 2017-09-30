@@ -11,7 +11,7 @@
 			<form action="/sendAddress" method="post">
 				<fieldset>
 					<input type="text" name="userAddress" placeholder="Address to receive SIGT" />
-					<div class="g-recaptcha" data-sitekey="<%= apiKey %>" id="captcha"></div>
+					<div class="g-recaptcha" data-sitekey="<%= apiKey %>"></div>
 					<input type="submit" value="Send me SIGT!" />
 				</fieldset>
 			</form>
@@ -36,8 +36,9 @@
 		border-color: #0d9f00;
 		background-color: #12d600;
 		text-align: center;
-		opacity: .75;
-		transition: visibility 0s 2s, opacity 2s linear;
+		visibility: hidden;
+		opacity: 0;
+		transition: visibility 0s 7s, opacity 10s linear;
 	}
 	.timeout{
 		height: 20%;
