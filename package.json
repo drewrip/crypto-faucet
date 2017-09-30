@@ -20,5 +20,10 @@
   "bugs": {
     "url": "https://github.com/nullifies/signatum-faucet/issues"
   },
-  "homepage": "https://github.com/nullifies/signatum-faucet#readme"
+  "homepage": "https://github.com/nullifies/signatum-faucet#readme",
+  "dependencies": {
+    "bitcoin-core": "^1.2.0",
+    "express": "^4.16.1",
+    "express-rate-limit": "^2.9.0"
+  }
 }
