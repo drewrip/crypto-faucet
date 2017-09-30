@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css?family=PT+Sans');
+html{
+	margin: 0px;
+	padding: 0px;
+}
+body{
+	background-color:  #00a7c8;
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
+	display: inline-block;
+}
+footer{
+	background-color: #727272;
+	width: 100%;
+	text-align: center;
+	font-family: "PT Sans", sans-serif;
+}
+footer a{
+	text-decoration: none;
+}
+input[type=text]{
+	padding: 4px;
+	width: 20%;
+	border: 3px solid #cecece;
+	margin-top: 2em;
+}
+input[type=text]:focus {
+	border: 3px solid #555;
+}
+input[type=submit]{
+	border-style: solid;
+	border-radius: 2px;
+	border-color: #cecece;
+	background-color: #eaeaea;
+	font-family: "PT Sans", sans-serif;
+	padding: 8px;
+	width: 10em;
+}
+input:hover[type=submit]{
+	border-color: #000000;
+	background-color: #eaeaea;
+}
+form{
+    text-align: center;
+}
+input[type=text]{
+	margin-bottom: 7.5em;
+	width: 20em;
+}
+#captcha{
+	margin-bottom: 2em;
+}
+input{
+}
+fieldset{
+	display: inline-block;
+	border: none;
+}
+.main{
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+.wrapper{
+	flex: 1;
+}
+ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #000000;
+}
+li{
+	display: inline;
+	float: left;
+	background-color: #000000;
+}
+li a {
+    display: block;
+    padding: 15px;
+    width: 120px;
+    text-decoration: none;
+    font-family: "PT Sans", sans-serif;
+    color: #FFF;
+    text-align: center;
+}
+li a:hover{
+	background-color: #333;
+}
+#bal{
+	color: #FFF;
+	font-family: "PT Sans", sans-serif;
+	float: right;
+}
+#balLink{
+	width: 400px;
+}
+#addr{
+	color: #FFF;
+	font-family: "PT Sans", sans-serif;
+	float: right;
+}
+#addrLink{
+	width: 400px;
+}
