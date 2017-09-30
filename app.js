@@ -34,6 +34,8 @@ const walletSIGT = new walletRPC({
   password: config.rpcPassword
 });
 
+walletSIGT.setTxFee(0.001);
+
 app.use(express.static(__dirname + '/views'));
 app.use("/sendAddress", limiter);
 app.set('views', './views');
@@ -69,7 +71,7 @@ app.post("/sendAddress", function(req, res) {
       return res.json({"responseCode" : 1,"responseDesc" : "Failed captcha verification"});
     }
   });
-  walletSIGT.sendToAddress(req.body.userAddress, config.faucetRate);
+  walletSIGT.sendFrom(config.walletAccount, req.body.userAddress, config.faucetRate);
   fs.appendFile("info.log", "Sending SIGT to address " + req.body.userAddress);
   if(req.rateLimit.statusCode != 429){
     sent = "sent";
