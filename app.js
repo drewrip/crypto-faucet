@@ -34,6 +34,7 @@ const walletSIGT = new walletRPC({
   password: config.rpcPassword
 });
 
+app.use(express.static(__dirname + '/views'));
 app.use("/sendAddress", limiter);
 app.set('views', './views');
 app.set('view engine', 'ejs');
