@@ -1,18 +1,29 @@
+<link rel="stylesheet" type="text/css" href="style.css">
 <html>
-	<body>
-		<h1>Signatum Faucet</h1>
-		<form style="padding: 20px" action="/sendAddress" method="post">
-			<fieldset>
-				<label for="address">Your Address:</label>
-				<input type="text" name="userAddress" placeholder="Address to receive SIGT" />
-				<div class="g-recaptcha" data-sitekey="<%= apiKey %>"></div>
-				<input type="submit" value="Send me SIGT!" />
-			</fieldset>
-		</form>
-		<h3 style="padding: 20px">Faucet has <%= faucetBalance %> SIGT available</h3>
-		<h3 style="padding: 20px">Donate to the faucet <%= faucetAddress %>. It is run completely on donations!</h3>
-		<div id="sendStatus" class="<%= sentStatus %>"><h4><%= statusMessage %></h4></div>
+	<body class="main">
+		<div class="wrapper">
+			<ul id="navbar">
+				<li><a href="https://signatum.io/">Website</a></li>
+				<li><a href="http://www.signatum.news">News</a></li>
+				<li id="bal"><a href="http://explorer.signatum.io/address/<%= faucetAddress %>" id="balLink">Faucet Balance: <%= faucetBalance %> SIGT</a></li>
+				<li id="addr"><a href="http://explorer.signatum.io/address/<%= faucetAddress %>" id="addrLink">Faucet Address: <%= faucetAddress %></a></li>
+			</ul>
+			<form action="/sendAddress" method="post">
+				<fieldset>
+					<input type="text" name="userAddress" placeholder="Address to receive SIGT" />
+					<div class="g-recaptcha" data-sitekey="<%= apiKey %>" id="captcha"></div>
+					<input type="submit" value="Send me SIGT!" />
+				</fieldset>
+			</form>
+			<div id="sendStatus" class="<%= sentStatus %>"><h4><%= statusMessage %></h4></div>
+		</div>
 	</body>
+	<footer>
+		<div id="info-footer">
+			<p>Run your own Signatum faucet</p>
+			<p><a href="https://github.com/nullifies/signatum-faucet">Check out the GitHub Repository</a></p>
+		</div>
+	</footer>
 </html>
 <script src="https://www.google.com/recaptcha/api.js"></script>
 <style type="text/css">
@@ -26,6 +37,7 @@
 		background-color: #12d600;
 		text-align: center;
 		opacity: .75;
+		transition: visibility 0s 2s, opacity 2s linear;
 	}
 	.timeout{
 		height: 20%;
@@ -36,7 +48,9 @@
 		border-color: #ba0000;
 		background-color: #c90000;
 		text-align: center;
-		opacity: .75;
+		visibility: hidden;
+		opacity: 0;
+		transition: visibility 0s 7s, opacity 10s linear;
 	}
 	.none{
 
