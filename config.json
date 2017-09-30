@@ -6,5 +6,5 @@
 	"walletAccount": "faucet",
 	"googleCaptchaApiKey": "Your Google ReCAPTCHA v2 API key",
 	"googleCaptchaApiSecret": "Your Google ReCAPTCHA v2 API secret",
-	"faucetRate": 0.2
+	"faucetRate": 0.1
 }
