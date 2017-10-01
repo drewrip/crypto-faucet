@@ -34,12 +34,12 @@ const walletSIGT = new walletRPC({
   password: config.rpcPassword
 });
 
-const serverAddr = "";
+var serverAddr = "";
 walletSIGT.getAddressesByAccount(config.walletAccount, function(err, acnts){
   serverAddr = acnts[0];
 });
 
-//Sets the fees for the tx and also sets a constant address for the faucet
+//Sets the fees for the tx
 walletSIGT.setTxFee(0.001);
 walletSIGT.setAccount(serverAddr, config.walletAccount);
 app.use(express.static(__dirname + '/views'));
