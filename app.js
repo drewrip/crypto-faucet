@@ -1,6 +1,5 @@
 // Retrieve
 var fs = require("fs");
-var http = require("http");
 var walletRPC = require("bitcoin-core");
 var express = require("express");
 var bodyParser = require('body-parser');
@@ -34,8 +33,14 @@ const walletSIGT = new walletRPC({
   password: config.rpcPassword
 });
 
-walletSIGT.setTxFee(0.001);
+const serverAddr = "";
+walletSIGT.getAddressesByAccount(config.walletAccount, function(err, acnts){
+  serverAddr = acnts[0];
+});
 
+//Sets the fees for the tx and also sets a constant address for the faucet
+walletSIGT.setTxFee(0.001);
+walletSIGT.setAccount(serverAddr, config.walletAccount);
 app.use(express.static(__dirname + '/views'));
 app.use("/sendAddress", limiter);
 app.set('views', './views');
@@ -44,7 +49,7 @@ app.set('view engine', 'ejs');
 app.get("/", function(req, res){
   walletSIGT.getBalance(function(err, bal){
     walletSIGT.getAccountAddress(config.walletAccount, function(err, addr){
-      res.render('index', {apiKey: config.googleCaptchaApiKey, faucetBalance: bal, faucetAddress: addr, sentStatus: sent, statusMessage: message});
+      res.render('index', {apiKey: config.googleCaptchaApiKey, faucetBalance: bal, faucetAddress: serverAddr, sentStatus: sent, statusMessage: message});
       sent = "none";
       message = "";
     });
