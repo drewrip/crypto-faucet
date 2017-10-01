@@ -1,5 +1,6 @@
 // Retrieve
 var fs = require("fs");
+var http = require("http");
 var walletRPC = require("bitcoin-core");
 var express = require("express");
 var bodyParser = require('body-parser');
@@ -77,7 +78,10 @@ app.post("/sendAddress", function(req, res) {
     }
   });
   walletSIGT.sendFrom(config.walletAccount, req.body.userAddress, config.faucetRate);
-  fs.appendFile("info.log", "Sending SIGT to address " + req.body.userAddress);
+  fs.appendFile("info.log", "Sending SIGT to address " + req.body.userAddress, function(err){
+    if(err) console.log(err);
+    console.log("Logging...")
+  });
   if(req.rateLimit.statusCode != 429){
     sent = "sent";
     message = "SIGT has been sent!";
