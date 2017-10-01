@@ -78,7 +78,7 @@ app.post("/sendAddress", function(req, res) {
     }
   });
   walletSIGT.sendFrom(config.walletAccount, req.body.userAddress, config.faucetRate);
-  fs.appendFile("info.log", "Sending SIGT to address " + req.body.userAddress, function(err){
+  fs.appendFile("info.log", "Sending SIGT to address " + req.body.userAddress + "\n", function(err){
     if(err) console.log(err);
     console.log("Logging...")
   });
